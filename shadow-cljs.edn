@@ -1,0 +1,7 @@
+{:lein        true
+ :nrepl       {:port 7002}
+ :socket-repl false
+ :builds      {:node {:target      :node-test
+                      :output-to   "target/node/test.js"
+                      :cache-level :jars
+                      :autorun     true}}}
