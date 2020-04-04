@@ -1,5 +1,5 @@
 (defproject io.axrs/freactive.core "0.2.1-SNAPSHOT"
-  :description "Generic reactive atoms, expressions, cursors"
+  :description "Generic reactive atoms, expressions, cursors. Forked from https://github.com/aaronc/freactive.core"
   :url "https://github.com/aaronc/freactive.core"
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
