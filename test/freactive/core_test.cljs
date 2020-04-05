@@ -1,14 +1,9 @@
 (ns freactive.core-test
   (:refer-clojure :exclude [atom read-string])
   (:require
-   [freactive.core :refer
-    [atom cursor lens-cursor update-in! update! #?(:clj rx)]]
-   #?@(:cljs [[cljs.reader :refer [read-string]]
-              [cljs.test :refer-macros [deftest is run-tests]]]
-      :clj   [[clojure.edn :refer [read-string]]
-              [clojure.test :refer [deftest is run-tests]]]))
-  #?(:cljs
-     (:require-macros [freactive.macros :refer [rx]])))
+    [clojure.edn :refer [read-string]]
+    [clojure.test :refer [deftest is run-tests]]
+    [freactive.core :refer [atom cursor lens-cursor update-in! update! rx]]))
 
 (deftest rx-test1
   (let [r0 (atom 0)
@@ -32,7 +27,7 @@
 (deftest lens-test
   (let [a (atom {:a 0})
         l (lens-cursor a pr-str (fn [_ new-value]
-                            (read-string new-value)))]
+                                  (read-string new-value)))]
     (is (= @l "{:a 0}"))
     (reset! l "{:b 1}")
     (is (= @a {:b 1}))
@@ -51,7 +46,7 @@
     (is (:b @b 4))
     (is (= @c 5))))
 
-(deftest conj-pop-test 
+(deftest conj-pop-test
   (let [a (atom [1 2])
         a1 (cursor a 1)
         a2 (cursor a 2)]

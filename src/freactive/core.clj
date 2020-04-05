@@ -1,4 +1,4 @@
-(ns freactive.macros)
+(ns freactive.core)
 
 (defmacro rx [& body]
   `(freactive.core/rx*
@@ -29,18 +29,19 @@
                        ([c#] (println dbg-str# "captured :" c#)))]
              ~rx)
            invalidation-cb#
-           (fn [k# r#] (println dbg-str#
-                               "notifiying invalidation watches:"
-                               (cljs.core/js-keys (.-invalidation-watches res#))
-                               "& watches:"
-                               (cljs.core/keys (.-watches res#))))]
+           (fn [k# r#]
+             (println dbg-str#
+               "notifiying invalidation watches:"
+               (cljs.core/js-keys (.-invalidation-watches res#))
+               "& watches:"
+               (cljs.core/keys (.-watches res#))))]
        (.addInvalidationWatch res# ~id invalidation-cb#)
        res#)))
 
 (defmacro cfor [[bind-sym keyset-cursor & {:as opts}] body]
   `(freactive.core/cmap*
-    (fn [~bind-sym] ~body)
-    ~keyset-cursor ~opts))
+     (fn [~bind-sym] ~body)
+     ~keyset-cursor ~opts))
 
 (defmacro defsubtype [t fields supertype & impls]
   (let [env &env
